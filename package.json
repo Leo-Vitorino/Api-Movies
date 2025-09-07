@@ -1,0 +1,27 @@
+{
+  "dependencies": {
+    "express": "^5.1.0",
+    "mongodb": "^6.19.0",
+    "mongoose": "^8.18.0",
+    "nodemon": "^3.1.10"
+  },
+  "name": "api-movies",
+  "version": "1.0.0",
+  "description": "Atividade de DW3",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npx nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Leo1542/Api-Movies.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/Leo1542/Api-Movies/issues"
+  },
+  "homepage": "https://github.com/Leo1542/Api-Movies#readme"
+}
