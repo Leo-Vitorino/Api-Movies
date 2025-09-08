@@ -1,38 +1,40 @@
 import movieService from "../Services/movieService.js";
+import mongoose from "mongoose";
+const { ObjectId } = mongoose.Types;
 
 const getAllMovies = async (req, res) => {
-    try{
+    try {
         const movies = await movieService.getAll();
-        res.status(200).json({movies:movies});
-    }catch(error){
-        console.log(error);
-        res.status(500).json({error: "Erro interno do servidor."}); 
+        res.status(200).json({ movies });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Erro interno do servidor." });
     }
 };
 
 const createMovie = async (req, res) => {
-    try{
-        const {title, genre, year} = req.body;
-        await gameService.Create(title,genre,year);
+    try {
+        const { title, genre, year } = req.body;
+        await movieService.create(title, genre, year);
         res.sendStatus(201);
-    } catch(error){
-        console.log(error);
-        res.status(500).json({ error: "Erro interno do servidor."})    }
-}
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Erro interno do servidor." });
+    }
+};
 
 const Delete = async (req, res) => {
     try {
-        if(ObjectId.isValid(req.params.id)){
-            const id = req.params.id
-            gameService.Delete(id)
-            res.sendStatus(204)
-        }else{
-            res.sendStatus(400)
+        if (ObjectId.isValid(req.params.id)) {
+            await movieService.delete(req.params.id);
+            res.sendStatus(204);
+        } else {
+            res.sendStatus(400);
         }
-    }catch(error){
-        console.log(error)
-        res.status(500).json({error: `Erro interno do servidor.`})
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Erro interno do servidor." });
     }
-}
+};
 
-export default {getAllMovies, createMovie, Delete}
+export default { getAllMovies, createMovie, Delete };

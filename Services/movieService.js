@@ -1,54 +1,55 @@
 import Movie from "../Models/Movies.js";
 
-class movieService{
-    async getAll(){
-        try{
+class MovieService {
+    async getAll() {
+        try {
             const movies = await Movie.find();
             return movies;
-        } catch(error){
+        } catch (error) {
             console.log(error);
+            throw error;
         }
     }
 
-    async Create(title, genre, year){
-        try{
-            const newMovie = new movie({
+    async create(title, genre, year) {
+        try {
+            const newMovie = new Movie({
                 title,
                 genre,
                 year
-            })
-            await newMovie.save()
-        } catch(error) {
-            console.log(error)
-        }
-    } 
-
-    async Delete(id){
-        try{
-            await Movie.findByIdAndDelete(id)
-            console.log(`Game com a id: ${id} foi deletado.`)
-        } catch (error){
-            console.log(error)
+            });
+            await newMovie.save();
+            return newMovie;
+        } catch (error) {
+            console.log(error);
+            throw error;
         }
     }
 
-    async Update(id, title, genre, year){
-        try{
-            const updateMovie = await movie.findByIdAndUpdate(
+    async delete(id) {
+        try {
+            await Movie.findByIdAndDelete(id);
+            console.log(`Filme com a id: ${id} foi deletado.`);
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
+    }
+
+    async update(id, title, genre, year) {
+        try {
+            const updatedMovie = await Movie.findByIdAndUpdate(
                 id,
-                {
-                    title,
-                    genre,
-                    year
-                },
-                {new:true}
-            )
-            console.log(`Filme com a ID ${id} foi alterado`)
-            return updateMovie;
-        }catch(error){
-            console.log(error)
+                { title, genre, year },
+                { new: true }
+            );
+            console.log(`Filme com a ID ${id} foi alterado`);
+            return updatedMovie;
+        } catch (error) {
+            console.log(error);
+            throw error;
         }
     }
 }
 
-export default new movieService;
+export default new MovieService();
